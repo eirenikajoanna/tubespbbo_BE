@@ -15,7 +15,6 @@ import (
 )
 
 func FindUser(c *fiber.Ctx) error {
-	AuthCheck(c)
 	_, authErr := ExtractTokenMetadata(c)
 	if authErr != nil {
 		e.HandleErr(c, authErr)
@@ -39,7 +38,11 @@ func FindUser(c *fiber.Ctx) error {
 }
 
 func FindOneUser(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)
@@ -97,7 +100,11 @@ func CreateUser(c *fiber.Ctx) error {
 }
 
 func UpdateUser(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)
@@ -133,7 +140,11 @@ func UpdateUser(c *fiber.Ctx) error {
 }
 
 func DeleteUser(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)

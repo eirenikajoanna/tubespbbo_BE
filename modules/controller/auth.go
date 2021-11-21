@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"strings"
 	e "tubespbbo/err"
+	"tubespbbo/mapper"
 	"tubespbbo/modules/dto"
 	"tubespbbo/modules/service"
 	"tubespbbo/response"
@@ -103,9 +104,23 @@ func ExtractTokenMetadata(c *fiber.Ctx) (*AccessDetails, error) {
 	return nil, err
 }
 
-func AuthCheck(c *fiber.Ctx) {
-	_, authErr := ExtractTokenMetadata(c)
+func Me(c *fiber.Ctx) error {
+	access, authErr := ExtractTokenMetadata(c)
 	if authErr != nil {
 		e.HandleErr(c, authErr)
 	}
+	user, err := service.FindOneUser(int64(access.UserId))
+	if err != nil {
+		e.HandleErr(c, err)
+		return nil
+	}
+
+	var DTO dto.UserDTO
+	mapper.Map(user, &DTO)
+
+	_ = c.JSON(response.HTTPResponse{
+		Code: http.StatusOK,
+		Data: DTO,
+	})
+	return nil
 }

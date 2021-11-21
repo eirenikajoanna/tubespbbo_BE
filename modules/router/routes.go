@@ -60,6 +60,7 @@ func RouteUsers(e *fiber.App) {
 	e.Post("/users", controller.CreateUser)
 	e.Put("/users/:id", controller.UpdateUser)
 	e.Delete("/users/:id", controller.DeleteUser)
+	e.Get("/me", controller.Me)
 
 	e.Post("/login", controller.Login)
 }

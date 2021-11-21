@@ -15,7 +15,11 @@ import (
 )
 
 func FindPaymentMethod(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	pm, err := service.FindPaymentMethod()
 	if err != nil {
 		e.HandleErr(c, err)
@@ -33,7 +37,7 @@ func FindPaymentMethod(c *fiber.Ctx) error {
 }
 
 func FindOnePaymentMethod(c *fiber.Ctx) error {
-	AuthCheck(c)
+
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)
@@ -56,7 +60,11 @@ func FindOnePaymentMethod(c *fiber.Ctx) error {
 }
 
 func CreatePaymentMethod(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	createDto := new(dto.CreatePaymentMethodDTO)
 	err := c.BodyParser(createDto)
 	if err != nil {
@@ -87,7 +95,11 @@ func CreatePaymentMethod(c *fiber.Ctx) error {
 }
 
 func UpdatePaymentMethod(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)
@@ -123,7 +135,11 @@ func UpdatePaymentMethod(c *fiber.Ctx) error {
 }
 
 func DeletePaymentMethod(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)

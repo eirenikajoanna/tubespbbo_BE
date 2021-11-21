@@ -15,7 +15,11 @@ import (
 )
 
 func FindTransactionDetail(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	pm, err := service.FindTransactionDetail()
 	if err != nil {
 		e.HandleErr(c, err)
@@ -33,7 +37,11 @@ func FindTransactionDetail(c *fiber.Ctx) error {
 }
 
 func FindOneTransactionDetail(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)
@@ -56,7 +64,11 @@ func FindOneTransactionDetail(c *fiber.Ctx) error {
 }
 
 func CreateTransactionDetail(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	createDto := new(dto.CreateTransactionDetailDTO)
 	err := c.BodyParser(createDto)
 	if err != nil {
@@ -87,7 +99,11 @@ func CreateTransactionDetail(c *fiber.Ctx) error {
 }
 
 func UpdateTransactionDetail(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)
@@ -123,7 +139,11 @@ func UpdateTransactionDetail(c *fiber.Ctx) error {
 }
 
 func DeleteTransactionDetail(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)

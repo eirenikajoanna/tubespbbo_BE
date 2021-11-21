@@ -15,7 +15,11 @@ import (
 )
 
 func FindExpense(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	pm, err := service.FindExpense()
 	if err != nil {
 		e.HandleErr(c, err)
@@ -33,7 +37,11 @@ func FindExpense(c *fiber.Ctx) error {
 }
 
 func FindOneExpense(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)
@@ -56,7 +64,11 @@ func FindOneExpense(c *fiber.Ctx) error {
 }
 
 func CreateExpense(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	createDto := new(dto.CreateExpenseDTO)
 	err := c.BodyParser(createDto)
 	if err != nil {
@@ -87,7 +99,11 @@ func CreateExpense(c *fiber.Ctx) error {
 }
 
 func UpdateExpense(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)
@@ -123,7 +139,11 @@ func UpdateExpense(c *fiber.Ctx) error {
 }
 
 func DeleteExpense(c *fiber.Ctx) error {
-	AuthCheck(c)
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)
