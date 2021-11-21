@@ -15,6 +15,7 @@ import (
 )
 
 func FindPayment(c *fiber.Ctx) error {
+	AuthCheck(c)
 	pm, err := service.FindPayment()
 	if err != nil {
 		e.HandleErr(c, err)
@@ -32,6 +33,7 @@ func FindPayment(c *fiber.Ctx) error {
 }
 
 func FindOnePayment(c *fiber.Ctx) error {
+	AuthCheck(c)
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)
@@ -54,6 +56,7 @@ func FindOnePayment(c *fiber.Ctx) error {
 }
 
 func CreatePayment(c *fiber.Ctx) error {
+	AuthCheck(c)
 	createDto := new(dto.CreatePaymentDTO)
 	err := c.BodyParser(createDto)
 	if err != nil {
@@ -91,6 +94,7 @@ func CreatePayment(c *fiber.Ctx) error {
 }
 
 func UpdatePayment(c *fiber.Ctx) error {
+	AuthCheck(c)
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)
@@ -126,6 +130,7 @@ func UpdatePayment(c *fiber.Ctx) error {
 }
 
 func DeletePayment(c *fiber.Ctx) error {
+	AuthCheck(c)
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)

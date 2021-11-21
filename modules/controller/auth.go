@@ -102,3 +102,10 @@ func ExtractTokenMetadata(c *fiber.Ctx) (*AccessDetails, error) {
 	}
 	return nil, err
 }
+
+func AuthCheck(c *fiber.Ctx) {
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+	}
+}

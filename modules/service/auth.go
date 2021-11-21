@@ -3,6 +3,7 @@ package service
 import (
 	"errors"
 	"time"
+	"tubespbbo/hashing"
 	"tubespbbo/modules/dto"
 	"tubespbbo/modules/repository"
 
@@ -18,7 +19,7 @@ func Login(loginRequestDTO *dto.LoginDto) (string, error) {
 	password := loginRequestDTO.Password
 
 	user, err := repository.FindUserByUsername(username)
-	if password != user.Password || err != nil || user == nil {
+	if !hashing.ComparePasswords(user.Password, []byte(password)) || err != nil || user == nil {
 		return "", errors.New("invalid password")
 	}
 

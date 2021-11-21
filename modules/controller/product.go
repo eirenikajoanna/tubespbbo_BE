@@ -32,6 +32,7 @@ func FindProduct(c *fiber.Ctx) error {
 }
 
 func FindOneProduct(c *fiber.Ctx) error {
+	AuthCheck(c)
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)
@@ -54,6 +55,7 @@ func FindOneProduct(c *fiber.Ctx) error {
 }
 
 func CreateProduct(c *fiber.Ctx) error {
+	AuthCheck(c)
 	createDto := new(dto.CreateProductDTO)
 	err := c.BodyParser(createDto)
 	if err != nil {
@@ -84,6 +86,7 @@ func CreateProduct(c *fiber.Ctx) error {
 }
 
 func UpdateProduct(c *fiber.Ctx) error {
+	AuthCheck(c)
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)
@@ -119,6 +122,7 @@ func UpdateProduct(c *fiber.Ctx) error {
 }
 
 func DeleteProduct(c *fiber.Ctx) error {
+	AuthCheck(c)
 	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
 	if err != nil {
 		e.HandleErr(c, err)

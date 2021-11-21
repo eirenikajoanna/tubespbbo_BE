@@ -1,6 +1,7 @@
 package service
 
 import (
+	"tubespbbo/hashing"
 	"tubespbbo/modules/dto"
 	"tubespbbo/modules/model"
 	"tubespbbo/modules/repository"
@@ -15,6 +16,7 @@ func FindOneUser(id int64) (*model.User, error) {
 }
 
 func CreateUser(user *model.User) error {
+	user.Password = hashing.HashAndSalt([]byte(user.Password))
 	return repository.CreateUser(user)
 }
 
