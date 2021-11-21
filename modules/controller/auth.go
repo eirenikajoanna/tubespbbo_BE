@@ -104,12 +104,28 @@ func ExtractTokenMetadata(c *fiber.Ctx) (*AccessDetails, error) {
 	return nil, err
 }
 
+func ExtractUserId(c *fiber.Ctx) (uint64, error) {
+	token, err := VerifyToken(c)
+	if err != nil {
+		return 0, err
+	}
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if ok && token.Valid {
+		userId, err := strconv.ParseUint(fmt.Sprintf("%.f", claims["user_id"]), 10, 64)
+		if err != nil {
+			return 0, err
+		}
+		return userId, nil
+	}
+	return 0, err
+}
+
 func Me(c *fiber.Ctx) error {
-	access, authErr := ExtractTokenMetadata(c)
+	id, authErr := ExtractUserId(c)
 	if authErr != nil {
 		e.HandleErr(c, authErr)
 	}
-	user, err := service.FindOneUser(int64(access.UserId))
+	user, err := service.FindOneUser(int64(id))
 	if err != nil {
 		e.HandleErr(c, err)
 		return nil
