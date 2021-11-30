@@ -11,4 +11,5 @@ type ExpenseDTO struct {
 	Quantity    float32 `json:"quantity"`
 	Category    int64   `json:"category"`
 	Description string  `json:"description"`
+	TotalAmount	float32 `json:"totalAmount"`
 }

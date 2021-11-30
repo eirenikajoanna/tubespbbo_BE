@@ -41,6 +41,9 @@ func UpdateExpense(updateDto *dto.UpdateExpenseDTO, id int64) (*model.Expense, e
 	if updateDto.Description != "" {
 		pm.Description = updateDto.Description
 	}
+	if updateDto.TotalAmount != 0 {
+		pm.Category = updateDto.TotalAmount
+	}
 	pm, err = repository.UpdateExpense(pm)
 	if err != nil {
 		return nil, err
