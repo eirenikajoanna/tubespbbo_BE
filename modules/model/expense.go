@@ -13,6 +13,7 @@ type Expense struct {
 	Quantity    float32 `gorm:"double"`
 	Category    int64
 	Description string `gorm:"varchar(255)"`
+	TotalAmount	float32 `gorm:"double"`
 }
 
 func init() {

@@ -22,6 +22,7 @@ func (s *Seed) SeedExpence() {
 		Quantity:	     15,
 		Category:        0,
 		Description:     "Beli pupuk organik",
+		TotalAmount:     1500000,
 	}
 	expenses[1] = model.Expense{
 		UserId:		     3,
@@ -30,6 +31,7 @@ func (s *Seed) SeedExpence() {
 		Quantity:	     20,
 		Category:        1,
 		Description:     "Beli stok peralatan menanam",
+		TotalAmount:     2750000,
 	}
 	expenses[2] = model.Expense{
 		UserId:		     4,
@@ -38,6 +40,7 @@ func (s *Seed) SeedExpence() {
 		Quantity:	     45,
 		Category:        0,
 		Description:     "Beli stok bibit bunga baru",
+		TotalAmount:     650000,
 	}
 
 	_ = db.Orm.Create(&expenses)
