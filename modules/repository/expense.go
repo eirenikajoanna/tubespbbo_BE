@@ -8,7 +8,7 @@ import (
 
 func FindExpense() (*[]model.Expense, error) {
 	var expenses []model.Expense
-	result := db.Orm.Find(&expenses)
+	result := db.Orm.Find(&expenses).Preload("User").Find(&expenses).Not("deleted_at = ?", nil)
 	if result.Error != nil {
 		return nil, result.Error
 	}

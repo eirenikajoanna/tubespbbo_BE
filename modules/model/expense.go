@@ -8,6 +8,7 @@ type Expense struct {
 	base.Model  `gorm:"extends"`
 	Id          int64
 	UserId      int64
+	User				User
 	Name        string  `gorm:"varchar(100)"`
 	ReleaseDate string  `gorm:"varchar(10)"`
 	Quantity    float32 `gorm:"double"`
