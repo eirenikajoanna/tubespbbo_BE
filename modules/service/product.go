@@ -35,7 +35,7 @@ func UpdateProduct(updateDto *dto.UpdateProductDTO, id int64) (*model.Product, e
 	if updateDto.Price != 0 {
 		products.Price = updateDto.Price
 	}
-	if updateDto.Quantity != 0 {
+	if updateDto.Quantity >= 0 {
 		products.Quantity = updateDto.Quantity
 	}
 	if updateDto.ImageUrl != "" {
