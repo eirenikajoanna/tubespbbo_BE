@@ -56,6 +56,7 @@ func RouteUsers(e *fiber.App) {
 	e.Get("/users", controller.FindUser)
 	e.Get("/users/:id", controller.FindOneUser)
 	e.Get("/users/:id/transaction", controller.FindOneUserTransaction)
+	e.Get("/users/:id/shopping-cart", controller.FindOneUserShoppingCart)
 	e.Post("/users", controller.CreateUser)
 	e.Put("/users/:id", controller.UpdateUser)
 	e.Delete("/users/:id", controller.DeleteUser)
@@ -66,4 +67,10 @@ func RouteUsers(e *fiber.App) {
 
 func RouterReport(e *fiber.App) {
 	e.Get("/reports", controller.FindReport)
+}
+
+func RouteShoppingCart(e *fiber.App) {
+	e.Post("/shopping-cart", controller.CreateShoppingCart)
+	e.Put("/shopping-cart/:id", controller.UpdateOneItemShoppingCart)
+	e.Delete("/shopping-cart/:id", controller.DeleteOneItemShoppingCart)
 }

@@ -14,6 +14,7 @@ type Product struct {
 	Quantity           int64
 	ImageUrl           string              `gorm:"varchar(255)"`
 	TransactionDetails []TransactionDetail `gorm:"ForeignKey:ProductId;references:Id"`
+	ShoppingCart       []ShoppingCart      `gorm:"ForeignKey:ProductId;references:Id"`
 }
 
 func init() {

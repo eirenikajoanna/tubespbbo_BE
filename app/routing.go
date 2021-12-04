@@ -13,4 +13,5 @@ func mapURLs() {
 	r.RouteTransactionMethods(router)
 	r.RouteTransactions(router)
 	r.RouterReport(router)
+	r.RouteShoppingCart(router)
 }

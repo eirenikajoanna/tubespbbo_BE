@@ -12,4 +12,5 @@ func migrate() {
 	_ = Orm.AutoMigrate(new(model.Expense))
 	_ = Orm.AutoMigrate(new(model.Transaction))
 	_ = Orm.AutoMigrate(new(model.TransactionDetail))
+	_ = Orm.AutoMigrate(new(model.ShoppingCart))
 }
