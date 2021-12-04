@@ -12,4 +12,5 @@ func mapURLs() {
 	r.RouteProducts(router)
 	r.RouteTransactionMethods(router)
 	r.RouteTransactions(router)
+	r.RouterReport(router)
 }

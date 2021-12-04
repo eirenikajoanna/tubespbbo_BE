@@ -23,13 +23,10 @@ func UpdateTransactionDetail(updateDto *dto.UpdateTransactionDetailDTO, id int64
 	if err != nil {
 		return nil, err
 	}
-	if updateDto.TransactionId != 0 {
-		pm.TransactionId = updateDto.TransactionId
-	}
 	if updateDto.ProductId != 0 {
 		pm.ProductId = updateDto.ProductId
 	}
-	if updateDto.Quantity != 0 {
+	if updateDto.Quantity > 0 {
 		pm.Quantity = updateDto.Quantity
 	}
 	pm, err = repository.UpdateTransactionDetail(pm)

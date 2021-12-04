@@ -27,15 +27,11 @@ func FindOneTransactionDetail(id int64) (*model.TransactionDetail, error) {
 		return nil, result.Error
 	}
 
-	if result.RowsAffected == 0 {
-		return nil, errors.New("no transaction details found")
-	}
-
 	return &pm, nil
 }
 
 func CreateTransactionDetail(pm *model.TransactionDetail) error {
-	result := db.Orm.Create(pm)
+	result := db.Orm.Create(&pm)
 	if result.Error != nil {
 		return result.Error
 	}

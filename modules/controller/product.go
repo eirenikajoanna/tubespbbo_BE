@@ -24,6 +24,10 @@ func FindProduct(c *fiber.Ctx) error {
 	var DTOs []dto.ProductDTO
 	mapper.Map(products, &DTOs)
 
+	if products == nil {
+		DTOs = []dto.ProductDTO{}
+	}
+
 	_ = c.JSON(response.HTTPResponse{
 		Code: http.StatusOK,
 		Data: DTOs,

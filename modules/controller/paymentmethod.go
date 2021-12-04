@@ -29,6 +29,10 @@ func FindPaymentMethod(c *fiber.Ctx) error {
 	var DTOs []dto.PaymentMethodDTO
 	mapper.Map(pm, &DTOs)
 
+	if pm == nil {
+		DTOs = []dto.PaymentMethodDTO{}
+	}
+
 	_ = c.JSON(response.HTTPResponse{
 		Code: http.StatusOK,
 		Data: DTOs,

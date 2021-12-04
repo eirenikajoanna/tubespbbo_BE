@@ -6,7 +6,6 @@ import (
 	e "tubespbbo/err"
 	"tubespbbo/mapper"
 	"tubespbbo/modules/dto"
-	"tubespbbo/modules/model"
 	"tubespbbo/modules/service"
 	"tubespbbo/response"
 
@@ -28,6 +27,10 @@ func FindTransaction(c *fiber.Ctx) error {
 
 	var DTOs []dto.TransactionDTO
 	mapper.Map(pm, &DTOs)
+
+	if pm == nil {
+		DTOs = []dto.TransactionDTO{}
+	}
 
 	_ = c.JSON(response.HTTPResponse{
 		Code: http.StatusOK,
@@ -82,11 +85,7 @@ func CreateTransaction(c *fiber.Ctx) error {
 		return nil
 	}
 
-	var transaction model.Transaction
-	mapper.Map(createDto, &transaction)
-	transaction.Status = "Belum Terverifikasi"
-
-	err = service.CreateTransaction(&transaction)
+	transaction, err := service.CreateTransaction(createDto)
 	if err != nil {
 		e.HandleErr(c, err)
 		return nil

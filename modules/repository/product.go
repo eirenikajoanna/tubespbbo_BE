@@ -13,10 +13,6 @@ func FindProduct() (*[]model.Product, error) {
 		return nil, result.Error
 	}
 
-	if result.RowsAffected == 0 {
-		return nil, errors.New("no product found")
-	}
-
 	return &products, nil
 }
 

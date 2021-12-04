@@ -13,10 +13,6 @@ func FindPayment() (*[]model.Payment, error) {
 		return nil, result.Error
 	}
 
-	if result.RowsAffected == 0 {
-		return nil, errors.New("no payment methods found")
-	}
-
 	return &payments, nil
 }
 

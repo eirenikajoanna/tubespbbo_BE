@@ -6,35 +6,12 @@ import (
 	e "tubespbbo/err"
 	"tubespbbo/mapper"
 	"tubespbbo/modules/dto"
-	"tubespbbo/modules/model"
 	"tubespbbo/modules/service"
 	"tubespbbo/response"
 
 	"github.com/gofiber/fiber/v2"
 	"gopkg.in/dealancer/validate.v2"
 )
-
-func FindTransactionDetail(c *fiber.Ctx) error {
-	_, authErr := ExtractTokenMetadata(c)
-	if authErr != nil {
-		e.HandleErr(c, authErr)
-		return nil
-	}
-	pm, err := service.FindTransactionDetail()
-	if err != nil {
-		e.HandleErr(c, err)
-		return nil
-	}
-
-	var DTOs []dto.TransactionDetailDTO
-	mapper.Map(pm, &DTOs)
-
-	_ = c.JSON(response.HTTPResponse{
-		Code: http.StatusOK,
-		Data: DTOs,
-	})
-	return nil
-}
 
 func FindOneTransactionDetail(c *fiber.Ctx) error {
 	_, authErr := ExtractTokenMetadata(c)
@@ -59,41 +36,6 @@ func FindOneTransactionDetail(c *fiber.Ctx) error {
 	_ = c.JSON(response.HTTPResponse{
 		Code: http.StatusOK,
 		Data: DTO,
-	})
-	return nil
-}
-
-func CreateTransactionDetail(c *fiber.Ctx) error {
-	_, authErr := ExtractTokenMetadata(c)
-	if authErr != nil {
-		e.HandleErr(c, authErr)
-		return nil
-	}
-	createDto := new(dto.CreateTransactionDetailDTO)
-	err := c.BodyParser(createDto)
-	if err != nil {
-		e.HandleErr(c, err)
-		return nil
-	}
-
-	err = validate.Validate(&createDto)
-	if err != nil {
-		e.HandleErr(c, err)
-		return nil
-	}
-
-	var pm model.TransactionDetail
-	mapper.Map(createDto, &pm)
-
-	err = service.CreateTransactionDetail(&pm)
-	if err != nil {
-		e.HandleErr(c, err)
-		return nil
-	}
-
-	_ = c.JSON(response.HTTPResponse{
-		Code: http.StatusOK,
-		Data: pm,
 	})
 	return nil
 }

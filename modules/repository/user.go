@@ -12,11 +12,6 @@ func FindUser() (*[]model.User, error) {
 	if result.Error != nil {
 		return nil, result.Error
 	}
-
-	if result.RowsAffected == 0 {
-		return nil, errors.New("no users found")
-	}
-
 	return &users, nil
 }
 

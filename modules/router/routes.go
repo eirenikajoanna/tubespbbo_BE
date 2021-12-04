@@ -47,9 +47,7 @@ func RouteTransactions(e *fiber.App) {
 }
 
 func RouteTransactionMethods(e *fiber.App) {
-	e.Get("/transaction-details", controller.FindTransactionDetail)
 	e.Get("/transaction-details/:id", controller.FindOneTransactionDetail)
-	e.Post("/transaction-details", controller.CreateTransactionDetail)
 	e.Put("/transaction-details/:id", controller.UpdateTransactionDetail)
 	e.Delete("/transaction-details/:id", controller.DeleteTransactionDetail)
 }
@@ -57,10 +55,15 @@ func RouteTransactionMethods(e *fiber.App) {
 func RouteUsers(e *fiber.App) {
 	e.Get("/users", controller.FindUser)
 	e.Get("/users/:id", controller.FindOneUser)
+	e.Get("/users/:id/transaction", controller.FindOneUserTransaction)
 	e.Post("/users", controller.CreateUser)
 	e.Put("/users/:id", controller.UpdateUser)
 	e.Delete("/users/:id", controller.DeleteUser)
 	e.Get("/me", controller.Me)
 
 	e.Post("/login", controller.Login)
+}
+
+func RouterReport(e *fiber.App) {
+	e.Get("/reports", controller.FindReport)
 }

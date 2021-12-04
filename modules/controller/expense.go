@@ -29,6 +29,10 @@ func FindExpense(c *fiber.Ctx) error {
 	var DTOs []dto.ExpenseDTO
 	mapper.Map(pm, &DTOs)
 
+	if pm == nil {
+		DTOs = []dto.ExpenseDTO{}
+	}
+
 	_ = c.JSON(response.HTTPResponse{
 		Code: http.StatusOK,
 		Data: DTOs,

@@ -30,6 +30,10 @@ func FindUser(c *fiber.Ctx) error {
 	var DTOs []dto.UserDTO
 	mapper.Map(users, &DTOs)
 
+	if users == nil {
+		DTOs = []dto.UserDTO{}
+	}
+
 	_ = c.JSON(response.HTTPResponse{
 		Code: http.StatusOK,
 		Data: DTOs,
@@ -60,6 +64,37 @@ func FindOneUser(c *fiber.Ctx) error {
 	_ = c.JSON(response.HTTPResponse{
 		Code: http.StatusOK,
 		Data: DTO,
+	})
+	return nil
+}
+
+func FindOneUserTransaction(c *fiber.Ctx) error {
+	_, authErr := ExtractTokenMetadata(c)
+	if authErr != nil {
+		e.HandleErr(c, authErr)
+		return nil
+	}
+	id, err := strconv.ParseInt(c.Params("id"), 10, 64)
+	if err != nil {
+		e.HandleErr(c, err)
+		return nil
+	}
+	transaction, err := service.FindTransactionByUser(id)
+	if err != nil {
+		e.HandleErr(c, err)
+		return nil
+	}
+
+	var DTOs []dto.TransactionDTO
+	mapper.Map(transaction, &DTOs)
+
+	if transaction == nil {
+		DTOs = []dto.TransactionDTO{}
+	}
+
+	_ = c.JSON(response.HTTPResponse{
+		Code: http.StatusOK,
+		Data: DTOs,
 	})
 	return nil
 }
