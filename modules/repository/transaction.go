@@ -10,7 +10,7 @@ import (
 
 func FindTransaction() (*[]model.Transaction, error) {
 	var transactions []model.Transaction
-	result := db.Orm.Find(&transactions).Preload("Payment").Preload("Payment.PaymentMethod").Preload("TransactionDetails").Preload("TransactionDetails.Product").Find(&transactions).Not("deleted_at = ?", nil)
+	result := db.Orm.Find(&transactions).Preload("User").Preload("Payment").Preload("Payment.PaymentMethod").Preload("TransactionDetails").Preload("TransactionDetails.Product").Find(&transactions).Not("deleted_at = ?", nil)
 	if result.Error != nil {
 		return nil, result.Error
 	}
