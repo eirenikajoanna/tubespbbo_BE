@@ -8,6 +8,7 @@ type Transaction struct {
 	base.Model         `gorm:"extends"`
 	Id                 int64
 	UserId             int64
+	User               User
 	ReceiptNumber      string              `gorm:"varchar(100)"`
 	Status             string              `gorm:"varchar(100)"`
 	TransactionDetails []TransactionDetail `gorm:"ForeignKey:TransactionId;references:Id"`

@@ -45,7 +45,7 @@ func FindTransactionOneMonth(month int, year int) (*[]model.Transaction, error) 
 	firstDayOfThisMonth := time.Date(year, time.Month(month), 1, 0, 0, 0, 0, now.Location())
 	fmt.Printf("The fist day of the actual month: %s\n", firstDayOfThisMonth)
 	var transactions []model.Transaction
-	result := db.Orm.Find(&transactions).Where("created_at BETWEEN ? AND ?", firstDayOfThisMonth, endOfLastMonth).Preload("Payment").Preload("Payment.PaymentMethod").Preload("TransactionDetails").Preload("TransactionDetails.Product").Find(&transactions).Not("deleted_at = ?", nil)
+	result := db.Orm.Find(&transactions).Where("created_at BETWEEN ? AND ?", firstDayOfThisMonth, endOfLastMonth).Preload("User").Preload("Payment").Preload("Payment.PaymentMethod").Preload("TransactionDetails").Preload("TransactionDetails.Product").Find(&transactions).Not("deleted_at = ?", nil)
 	if result.Error != nil {
 		return nil, result.Error
 	}
@@ -55,7 +55,7 @@ func FindTransactionOneMonth(month int, year int) (*[]model.Transaction, error) 
 
 func FindOneTransaction(id int64) (*model.Transaction, error) {
 	var transaction model.Transaction
-	result := db.Orm.First(&transaction, id).Preload("Payment").Preload("Payment.PaymentMethod").Preload("TransactionDetails").Preload("TransactionDetails.Product").First(&transaction, id)
+	result := db.Orm.First(&transaction, id).Preload("User").Preload("Payment").Preload("Payment.PaymentMethod").Preload("TransactionDetails").Preload("TransactionDetails.Product").First(&transaction, id)
 	if result.Error != nil {
 		return nil, result.Error
 	}
