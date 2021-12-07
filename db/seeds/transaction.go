@@ -23,7 +23,7 @@ func (s *Seed) SeedTransaction() {
 	Transactions[1] = model.Transaction{
 		UserId:           2,
 		ReceiptNumber:           "111222444",
-		Status:           "Proses",
+		Status:           "Dikemas",
 	}
 	Transactions[2] = model.Transaction{
 		UserId:           3,
