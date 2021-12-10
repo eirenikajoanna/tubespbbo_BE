@@ -14,21 +14,31 @@ func (s *Seed) SeedTransaction() {
 		return
 	}
 
-	Transactions := make([]model.Transaction, 3)
+	Transactions := make([]model.Transaction, 5)
 	Transactions[0] = model.Transaction{
-		UserId:           1,
-		ReceiptNumber:           "111222333",
-		Status:           "Selesai",
+		UserId:1,
+		ReceiptNumber:"111222333",
+		Status:"Selesai",
 	}
 	Transactions[1] = model.Transaction{
-		UserId:           2,
-		ReceiptNumber:           "111222444",
-		Status:           "Dikemas",
+		UserId:6,
+		ReceiptNumber:"-",
+		Status:"Dikemas",
 	}
 	Transactions[2] = model.Transaction{
-		UserId:           3,
-		ReceiptNumber:           "111222555",
-		Status:           "Belum Proses",
+		UserId:7,
+		ReceiptNumber:"-",
+		Status:"Belum Proses",
+	}
+	Transactions[3] = model.Transaction{
+		UserId:7,
+		ReceiptNumber:"-",
+		Status:"Belum Terverifikasi",
+	}
+	Transactions[4] = model.Transaction{
+		UserId:7,
+		ReceiptNumber:"111222444",
+		Status:"Dikirim",
 	}
 
 	_ = db.Orm.Create(&Transactions)

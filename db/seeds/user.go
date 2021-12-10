@@ -15,7 +15,7 @@ func (s *Seed) SeedUser() {
 		return
 	}
 
-	users := make([]model.User, 5)
+	users := make([]model.User, 7)
 	users[0] = model.User{
 		Username: "Jojoan",
 		Password: hashing.HashAndSalt([]byte("joan123")),
@@ -65,6 +65,26 @@ func (s *Seed) SeedUser() {
 		Address:  "Jln. Dimana-mana hatiku hanya dia no.1",
 		Phone:    "0811229988",
 		Email:    "melpinzs@email.com",
+	}
+	users[5] = model.User{
+		Username: "Boedi123",
+		Password: hashing.HashAndSalt([]byte("budi123")),
+		Name:     "Budiarto",
+		Dob:      "2000-12-10",
+		Role:     0,
+		Address:  "Jln. Sisa kenangan masa lalu no.1",
+		Phone:    "089822234411",
+		Email:    "boedi123@email.com",
+	}
+	users[6] = model.User{
+		Username: "Nichoco",
+		Password: hashing.HashAndSalt([]byte("ndutdut123")),
+		Name:     "Nicholas Ndut",
+		Dob:      "1999-12-12",
+		Role:     0,
+		Address:  "Jln. Dihati enjel no.1",
+		Phone:    "081234567899",
+		Email:    "ndudut@email.com",
 	}
 
 	_ = db.Orm.Create(&users)
