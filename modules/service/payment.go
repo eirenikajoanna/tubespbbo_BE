@@ -15,6 +15,9 @@ func FindOnePayment(id int64) (*model.Payment, error) {
 }
 
 func CreatePayment(payment *model.Payment) error {
+	transaction, _ := repository.FindOneTransaction(payment.TransactionId)
+	transaction.Status = "Belum Proses"
+	repository.UpdateTransaction(transaction)
 	return repository.CreatePayment(payment)
 }
 
